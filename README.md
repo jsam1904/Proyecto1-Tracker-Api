@@ -72,6 +72,27 @@ El servidor queda en **`http://localhost:8080`** (o el puerto definido en `PORT`
 
 ---
 
+## 🚀 Servidor en Producción
+
+API desplegada en Railway y disponible en:
+
+**Base URL:** `https://proyecto1-tracker-api-production.up.railway.app`
+
+### Ejemplos de uso:
+
+```bash
+# Listar equipos
+curl https://proyecto1-tracker-api-production.up.railway.app/teams
+
+# Buscar un equipo específico
+curl "https://proyecto1-tracker-api-production.up.railway.app/teams?q=bayern"
+
+# Ver un equipo por ID
+curl https://proyecto1-tracker-api-production.up.railway.app/teams/1
+```
+
+---
+
 ## Endpoints
 
 | Método | Ruta | Descripción |
