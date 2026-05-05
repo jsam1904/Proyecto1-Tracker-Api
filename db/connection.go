@@ -2,9 +2,9 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	_ "github.com/lib/pq"
 )
@@ -12,15 +12,19 @@ import (
 var DB *sql.DB
 
 func Connect() {
-	connStr := fmt.Sprintf(
-		"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
-		os.Getenv("DB_HOST"),
-		os.Getenv("DB_PORT"),
-		os.Getenv("DB_USER"),
-		os.Getenv("DB_PASSWORD"),
-		os.Getenv("DB_NAME"),
-		os.Getenv("DB_SSLMODE"),
-	)
+	connStr := os.Getenv("DATABASE_URL")
+
+	if connStr == "" {
+		connStr = "host=" + os.Getenv("DB_HOST") +
+			" port=" + os.Getenv("DB_PORT") +
+			" user=" + os.Getenv("DB_USER") +
+			" password=" + os.Getenv("DB_PASSWORD") +
+			" dbname=" + os.Getenv("DB_NAME") +
+			" sslmode=" + os.Getenv("DB_SSLMODE")
+	}
+
+	// pq driver requiere "postgres://" no "postgresql://"
+	connStr = strings.Replace(connStr, "postgresql://", "postgres://", 1)
 
 	var err error
 	DB, err = sql.Open("postgres", connStr)
