@@ -40,7 +40,7 @@ func GetTeams(w http.ResponseWriter, r *http.Request) {
 		limit = l
 	}
 
-	allowedSorts := map[string]bool{"name": true, "city": true, "founded": true, "stadium": true}
+	allowedSorts := map[string]bool{"name": true, "city": true, "founded": true, "stadium": true, "id": true}
 	if sortField != "" && !allowedSorts[sortField] {
 		respondError(w, http.StatusBadRequest, "Invalid sort field. Allowed: name, city, founded, stadium", nil)
 		return
